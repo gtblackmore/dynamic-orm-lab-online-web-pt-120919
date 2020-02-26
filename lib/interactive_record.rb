@@ -60,7 +60,7 @@ class InteractiveRecord
     value = attribute_hash.values.first
     value_selected = value.class == Fixnum ? value : "'#{value}'"
     sql = <<-SQL 
-      SELECT * 
+      "SELECT * 
       FROM #{self.table_name}
       WHERE #{attribute_hash.keys.first} = #{formatted_value}"
       SQL
