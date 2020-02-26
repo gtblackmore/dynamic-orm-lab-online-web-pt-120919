@@ -58,7 +58,7 @@ class InteractiveRecord
   
   def self.find_by(attribute)
     value = attribute.values.first
-    value_selected = value.class == Fixnum ? value : "'#{value}'"
+    value_selected = value.class == Fixnum ? value: "#{value}"
     sql = <<-SQL
       SELECT *
       FROM #{self.table_name}
