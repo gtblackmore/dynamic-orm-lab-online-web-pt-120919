@@ -21,8 +21,8 @@ class InteractiveRecord
 
   def save
     sql =<<-SQL
-      "INSERT INTO #{table_name_for_insert} (#{col_names_for_insert})
-      VALUES (#{values_for_insert})"
+      INSERT INTO #{table_name_for_insert} (#{col_names_for_insert})
+      VALUES (#{values_for_insert})
       SQL
     
     DB[:conn].execute(sql)
@@ -50,5 +50,14 @@ class InteractiveRecord
     DB[:conn].execute(sql, name)
   end
   
-  def self.find_by
+  def self.find_by(attribute)
+    value = attribute.values.first
+    value_selected = value.class == Fixnum ? value : "'#{value}'"
+    sql = <<-SQL
+      SELECT *
+      FROM #{self.table_name}
+      WHERE #{value.keys.first} = #{value_selected}
+      SQL
+    DB[:conn].execute(sql)
+  end
 end
